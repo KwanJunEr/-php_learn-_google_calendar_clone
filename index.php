@@ -1,3 +1,9 @@
+<?php
+
+include "calendar.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar Project</title>
     <meta name="description" content="My Own Calendar Project">
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -13,6 +20,19 @@
     <header>
         <h1> 📅 Course Calendar <br> My Calendar Project </h1>
     </header>
+
+    <!--Sucess Messages-->
+    <?php if ($successMsg): ?>
+     <div class="alert success"><?= $successMsg ?></div>
+
+     <!--
+        This is a short echo tag in PHP.
+
+    -->
+     <?php elseif ($errorMsg): ?>
+    <div class="alert error"><?= $errorMsg ?></div>
+  <?php endif; ?>
+
     <!--Clock-->
     <div class="clock-container">
         <div id="clock"> </div>
@@ -21,9 +41,9 @@
     <!--Calendar Section -->
     <div class="calendar">
         <div class="nav-btn-container">
-            <button class="nav-btn">⏮️</button>
+            <button class="nav-btn" onclick="changeMonth(-1)">⏮️</button>
             <h2 id="monthYear" style="margin: 0"></h2>
-            <button class="nav-btn">⏭️</button>
+            <button class="nav-btn"  onclick="changeMonth(1)">⏭️</button>
         </div>
 
         <div class="calendar-grid" id="calendar">
@@ -39,7 +59,7 @@
                 <label for="eventSelector">
                     <strong>Select Event:</strong>
                 </label>
-                <select id="eventSelector">
+                <select id="eventSelector" onchange="handleEventSelection(this.value)">
                     <option disabled selected>Choose Event...</option>
                 </select>
             </div>
